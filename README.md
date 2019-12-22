@@ -3,27 +3,33 @@
 <p align="center">
   <img src="https://zouyaoji.top/vue-cesium/favicon.png" width="200px">
 </p>
-<p align="center">Cesium components for Vue 2.x that can help you load Cesium built package or other third-party packages which are built on Cesium.</p>
+<p align="center">Vue 2.x components for CesiumJS. Load Cesium built package or other third-party packages which are built on Cesium.</p>
 
-[![npm](https://img.shields.io/npm/v/vue-cesium.svg)]()
-[![Travis](https://img.shields.io/travis/zouyaoji/vue-cesium.svg)]()
-[![Package Quality](http://npm.packagequality.com/shield/vue-cesium.png)](http://packagequality.com/#?package=vue-cesium)
-[![npm](https://img.shields.io/npm/dm/vue-cesium.svg)]()
-[![license](https://img.shields.io/github/license/zouyaoji/vue-cesium.svg)]()
+[![Travis](https://img.shields.io/travis/zouyaoji/vue-cesium?style=plastic)](https://travis-ci.org/zouyaoji/vue-cesium)
+[![npm](https://img.shields.io/npm/v/vue-cesium?style=plastic)](https://www.npmjs.com/package/vue-cesium)
+[![npm](https://img.shields.io/npm/dm/vue-cesium?style=plastic)](https://www.npmjs.com/package/vue-cesium)
+[![license](https://img.shields.io/github/license/zouyaoji/vue-cesium?style=plastic)](https://github.com/zouyaoji/vue-cesium/blob/master/LICENSE)
+[![Coverage Status](https://img.shields.io/coveralls/github/zouyaoji/vue-cesium?style=plastic)](https://coveralls.io/github/zouyaoji/vue-cesium?branch=master)
+[![Package Quality](https://npm.packagequality.com/shield/vue-cesium.svg)](https://packagequality.com/#?package=vue-cesium)
 
 ## Languages
 
 - [中文](https://github.com/zouyaoji/vue-cesium/blob/master/README.zh.md)
 - [English](https://github.com/zouyaoji/vue-cesium/blob/master/README.md)
 
-## Documentation
+## Links
 
-- [Online Documentation](https://zouyaoji.top/vue-cesium)
-- [For more examples](https://github.com/zouyaoji/vue-cesium-demo)
+- [Documentation](https://zouyaoji.top/vue-cesium)
+- [Official Demo](https://sandcastle.cesium.com/)
+- [More examples](https://github.com/zouyaoji/vue-cesium-demo)
 
 ## Get Start
 
-Amateur learning Vue component development, continuous development.
+`VueCesium` using the built CesiumJS library. You can use online, local, official native libraries or third-party libraries built on Cesium depending on your project needs.
+
+[Developed components](https://github.com/zouyaoji/vue-cesium/blob/master/src/utils/nameClassMap.js).
+
+In the gradual improvement...
 
 ### Installation
 
@@ -62,8 +68,7 @@ Vue.use(VueCesium, {
 ```vue
 <template>
   <div class="viewer">
-    <cesium-viewer>
-    </cesium-viewer>
+    <vc-viewer> </vc-viewer>
   </div>
 </template>
 
@@ -75,6 +80,11 @@ Vue.use(VueCesium, {
 </style>
 ```
 
+## TODOS
+
+- Add more components
+- ...
+
 ## Contributing
 
 [Contributing Guide](https://github.com/zouyaoji/vue-cesium/blob/master/CONTRIBUTING.md)
@@ -85,6 +95,6 @@ Vue.use(VueCesium, {
 
 Copyright (c) 2018-present, zouyaoji <370681295@qq.com>
 
-## Thanks
+## Reference
 
-I referenced a lot from the [vue-baidu-map](https://github.com/Dafrok/vue-baidu-map) project. Thanks very much!
+Two good vue components projects: [vue-baidu-map](https://github.com/Dafrok/vue-baidu-map) and [vuelayers](https://github.com/ghettovoice/vuelayers/).

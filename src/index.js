@@ -1,124 +1,279 @@
-import { version } from '../package.json'
-import CesiumViewer from '@/viewer/CesiumViewer.vue'
-import ImageryLayer from '@/imageryLayers/ImageryLayer.vue'
-import ArcGisMapServerImageryProvider from '@/imageryLayers/ArcGisMapServerImageryProvider.vue'
-import BingMapsImageryProvider from '@/imageryLayers/BingMapsImageryProvider.vue'
-import MapboxImageryProvider from '@/imageryLayers/MapboxImageryProvider.vue'
-import OpenStreetMapImageryProvider from '@/imageryLayers/OpenStreetMapImageryProvider.vue'
-import SingleTileImageryProvider from '@/imageryLayers/SingleTileImageryProvider.vue'
-import UrlTemplateImageryProvider from '@/imageryLayers/UrlTemplateImageryProvider.vue'
-import WebMapTileServiceImageryProvider from '@/imageryLayers/WebMapTileServiceImageryProvider.vue'
-import SuperMapImageryProvider from '@/imageryLayers/SuperMapImageryProvider.vue'
+import * as Viewer from './components/viewer'
+// 影像
+import * as ImageryLayer from './components/imageryLayer'
+import * as ArcGisMapServerImageryProvider from './components/imageryLayer/arcgis'
+import * as BingMapsImageryProvider from './components/imageryLayer/bingmaps'
+import * as GoogleEarthEnterpriseImageryProvider from './components/imageryLayer/googleEarth'
+import * as GridImageryProvider from './components/imageryLayer/grid'
+import * as IonImageryProvider from './components/imageryLayer/ion'
+import * as MapboxImageryProvider from './components/imageryLayer/mapbox'
+import * as OpenStreetMapImageryProvider from './components/imageryLayer/openStreetMap'
+import * as SingleTileImageryProvider from './components/imageryLayer/singleTile'
+import * as TileCoordinatesImageryProvider from './components/imageryLayer/tileCoordinates'
+import * as TileMapServiceImageryProvider from './components/imageryLayer/tileMapService'
+import * as UrlTemplateImageryProvider from './components/imageryLayer/urlTemplate'
+import * as WebMapServiceImageryProvider from './components/imageryLayer/wms'
+import * as WebMapTileServiceImageryProvider from './components/imageryLayer/wmts'
+import * as TiandituImageryProvider from './components/imageryLayer/tianditu'
+import * as SuperMapImageryProvider from './components/imageryLayer/supermap'
+import * as TiledCacheImageryProvider from './components/imageryLayer/tiledCache'
+// 地形
+import * as ArcGISTiledElevationTerrainProvider from './components/terrain/arcgis'
+import * as CesiumTerrainProvider from './components/terrain/cesium'
+// 数据源
+import * as CustomDataSource from './components/datasource/custom'
+import * as CzmlDataSource from './components/datasource/czml'
+import * as GeoJsonDataSource from './components/datasource/geojson'
+import * as KmlDataSource from './components/datasource/kml'
+// 实体
+import * as Entity from './components/entity'
+import * as BillboardGraphics from './components/entity/billboard'
+import * as BoxGraphics from './components/entity/box'
+import * as CorridorGraphics from './components/entity/corridor'
+import * as CylinderGraphics from './components/entity/cylinder'
+import * as EllipseGraphics from './components/entity/ellipse'
+import * as EllipsoidGraphics from './components/entity/ellipsoid'
+import * as LabelGraphics from './components/entity/label'
+import * as ModelGraphics from './components/entity/model'
+import * as PathGraphics from './components/entity/path'
+import * as PlaneGraphics from './components/entity/plane'
+import * as PointGraphics from './components/entity/point'
+import * as PolygonGraphics from './components/entity/polygon'
+import * as PolylineGraphics from './components/entity/polyline'
+import * as PolylineVolumeGraphics from './components/entity/polylineVollume'
+import * as RectangleGraphics from './components/entity/rectangle'
+import * as WallGraphics from './components/entity/wall'
+// 图元集合
+import * as PrimitiveCollection from './components/primitiveCollection'
+import * as BillboardCollection from './components/primitiveCollection/billboardCollection'
+import * as LabelCollection from './components/primitiveCollection/labelCollection'
+import * as PointPrimitiveCollection from './components/primitiveCollection/pointCollection'
+import * as PolylineCollection from './components/primitiveCollection/polylineCollection'
+// 图元
+import * as Primitive from './components/primitive'
+import * as ClassificationPrimitive from './components/primitive/classification'
+import * as GroundPrimitive from './components/primitive/ground'
+import * as GroundPolylinePrimitive from './components/primitive/groundPolyline'
+import * as Billboard from './components/primitive/billboard'
+import * as Label from './components/primitive/label'
+import * as PointPrimitive from './components/primitive/point'
+import * as Polyline from './components/primitive/polyline'
+import * as Model from './components/primitive/model'
+import * as Cesium3DTileset from './components/primitive/3dTileset'
+// 几何体
+import * as GeometryInstance from './components/geometryInstance'
+import * as BoxGeometry from './components/geometryInstance/box'
+import * as BoxOutlineGeometry from './components/geometryInstance/boxOutline'
+import * as CircleGeometry from './components/geometryInstance/circle'
+import * as CircleOutlineGeometry from './components/geometryInstance/circleOutline'
+import * as CoplanarPolygonGeometry from './components/geometryInstance/coplanarPolygon'
+import * as CoplanarPolygonOutlineGeometry from './components/geometryInstance/coplanarPolygonOutline'
+import * as CorridorGeometry from './components/geometryInstance/corridor'
+import * as CorridorOutlineGeometry from './components/geometryInstance/corridorOutline'
+import * as CylinderGeometry from './components/geometryInstance/cylinder'
+import * as CylinderOutlineGeometry from './components/geometryInstance/cylinderOutline'
+import * as EllipseGeometry from './components/geometryInstance/ellipse'
+import * as EllipseOutlineGeometry from './components/geometryInstance/ellipseOutline'
+import * as EllipsoidGeometry from './components/geometryInstance/ellipsoid'
+import * as EllipsoidOutlineGeometry from './components/geometryInstance/ellipsoidOutline'
+import * as FrustumGeometry from './components/geometryInstance/frustum'
+import * as FrustumOutlineGeometry from './components/geometryInstance/frustumOutline'
+import * as GroundPolylineGeometry from './components/geometryInstance/groundPolyline'
+import * as PlaneGeometry from './components/geometryInstance/plane'
+import * as PlaneOutlineGeometry from './components/geometryInstance/planeOutline'
+import * as PolygonGeometry from './components/geometryInstance/polygon'
+import * as PolygonOutlineGeometry from './components/geometryInstance/polygonOutline'
+import * as PolylineGeometry from './components/geometryInstance/polyline'
+import * as PolylineVolumeGeometry from './components/geometryInstance/polylineVolume'
+import * as PolylineVolumeOutlineGeometry from './components/geometryInstance/polylineVolumeOutline'
+import * as RectangleGeometry from './components/geometryInstance/rectangle'
+import * as RectangleOutlineGeometry from './components/geometryInstance/rectangleOutline'
+import * as SimplePolylineGeometry from './components/geometryInstance/simplePolyline'
+import * as SphereGeometry from './components/geometryInstance/sphere'
+import * as SphereOutlineGeometry from './components/geometryInstance/sphereOutline'
+import * as WallGeometry from './components/geometryInstance/wall'
+import * as WallOutlineGeometry from './components/geometryInstance/wallOutline'
+// stage
+import * as PostProcessStageCollection from './components/stageCollection'
+import * as PostProcessStage from './components/stage'
+// 工具
+import * as VcMeasureArea from './components/tool/measureArea'
+import * as VcMeasureDistance from './components/tool/measureDistance'
+import * as VcMeasureHeight from './components/tool/measureHeight'
+import * as VcDrawHandlerPoint from './components/tool/drawHandlerPoint'
+import * as VcDrawHandlerPolyline from './components/tool/drawHandlerPolyline'
+import * as VcDrawHandlerPolygon from './components/tool/drawHandlerPolygon'
+// 控件
+import * as VcNavigation from './components/control/navigation'
+import * as VcNavigationSM from './components/control/navigationSM'
+// 可视化
+import * as VcFlood from './components/visualization/flood'
+import * as VcHeatMap from './components/visualization/heatmap'
+import * as VcWindMap from './components/visualization/windmap'
 
-import Entity from '@/entities/Entity.vue'
-import BillboardGraphics from '@/entities/BillboardGraphics.vue'
-import BoxGraphics from '@/entities/BoxGraphics.vue'
-import CorridorGraphics from '@/entities/CorridorGraphics.vue'
-import CylinderGraphics from '@/entities/CylinderGraphics.vue'
-import EllipseGraphics from '@/entities/EllipseGraphics.vue'
-import EllipsoidGraphics from '@/entities/EllipsoidGraphics.vue'
-import LabelGraphics from '@/entities/LabelGraphics.vue'
-import ModelGraphics from '@/entities/ModelGraphics.vue'
-import PathGraphics from '@/entities/PathGraphics.vue'
-import PlaneGraphics from '@/entities/PlaneGraphics.vue'
-import PointGraphics from '@/entities/PointGraphics.vue'
-import PolygonGraphics from '@/entities/PolygonGraphics.vue'
-import PolylineGraphics from '@/entities/PolylineGraphics.vue'
-import PolylineVolumeGraphics from '@/entities/PolylineVolumeGraphics.vue'
-import RectangleGraphics from '@/entities/RectangleGraphics.vue'
-import WallGraphics from '@/entities/WallGraphics.vue'
+/**
+ * @const {string} VueCesium version
+ */
+const VERSION = 'C_PKG_VERSION'
 
-import PointCollection from '@/primitives/PointPrimitiveCollection.vue'
-import PolylineCollection from '@/primitives/PolylineCollection.vue'
-import LabelCollection from '@/primitives/LabelCollection.vue'
-import PointPrimitive from '@/primitives/PointPrimitive.vue'
-import Polyline from '@/primitives/Polyline.vue'
-import Label from '@/primitives/Label.vue'
-import Cesium3DTileset from '@/primitives/Cesium3DTileset.vue'
-import Model from '@/primitives/Model.vue'
-
-import MeasureDistance from '@/measure/MeasureDistance.vue'
-import MeasureArea from '@/measure/MeasureArea.vue'
-import MeasureHeight from '@/measure/MeasureHeight.vue'
-
-import CesiumHeatMap from '@/extra/CesiumHeatMap.vue'
-
-export default {
-  install (Vue, options) {
-    let cesiumPath = options
-      ? options.cesiumPath
-      : 'https://unpkg.com/cesium/Build/Cesium/Cesium.js'
-    let accessToken = options
-      ? options.accessToken
-      : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiMGRjM2QxYi04ODM2LTQzMDEtOGJmOS1mNDlkY2Q2NjE4MjciLCJpZCI6MjU5LCJpYXQiOjE1MjU5NjYyMDd9.xW9loNLo68KE3ReAHd-Lp73M8qJKhI9vA0wYL-qJX_I'
-    Vue.prototype._Cesium = () => ({ cesiumPath, accessToken })
-    Vue.component('cesium-viewer', CesiumViewer)
-    Vue.component(ImageryLayer.name, ImageryLayer)
-    Vue.component(
-      ArcGisMapServerImageryProvider.name,
-      ArcGisMapServerImageryProvider
-    )
-    Vue.component(BingMapsImageryProvider.name, BingMapsImageryProvider)
-    Vue.component(MapboxImageryProvider.name, MapboxImageryProvider)
-    Vue.component(
-      OpenStreetMapImageryProvider.name,
-      OpenStreetMapImageryProvider
-    )
-    Vue.component(SingleTileImageryProvider.name, SingleTileImageryProvider)
-    Vue.component(UrlTemplateImageryProvider.name, UrlTemplateImageryProvider)
-    Vue.component(
-      WebMapTileServiceImageryProvider.name,
-      WebMapTileServiceImageryProvider
-    )
-    Vue.component(SuperMapImageryProvider.name, SuperMapImageryProvider)
-
-    Vue.component(Entity.name, Entity)
-    Vue.component(BillboardGraphics.name, BillboardGraphics)
-    Vue.component(BoxGraphics.name, BoxGraphics)
-    Vue.component(CorridorGraphics.name, CorridorGraphics)
-    Vue.component(CylinderGraphics.name, CylinderGraphics)
-    Vue.component(EllipseGraphics.name, EllipseGraphics)
-    Vue.component(EllipsoidGraphics.name, EllipsoidGraphics)
-    Vue.component(LabelGraphics.name, LabelGraphics)
-    Vue.component(ModelGraphics.name, ModelGraphics)
-    Vue.component(PathGraphics.name, PathGraphics)
-    Vue.component(PlaneGraphics.name, PlaneGraphics)
-    Vue.component(PointGraphics.name, PointGraphics)
-    Vue.component(PolygonGraphics.name, PolygonGraphics)
-    Vue.component(PolylineGraphics.name, PolylineGraphics)
-    Vue.component(PolylineVolumeGraphics.name, PolylineVolumeGraphics)
-    Vue.component(RectangleGraphics.name, RectangleGraphics)
-    Vue.component(WallGraphics.name, WallGraphics)
-
-    Vue.component(Cesium3DTileset.name, Cesium3DTileset)
-    Vue.component(PolylineCollection.name, PolylineCollection)
-    Vue.component(Polyline.name, Polyline)
-    Vue.component(LabelCollection.name, LabelCollection)
-    Vue.component(Label.name, Label)
-    Vue.component(PointCollection.name, PointCollection)
-    Vue.component(PointPrimitive.name, PointPrimitive)
-
-    Vue.component('model-primitive', Model)
-    Vue.component('measure-distance', MeasureDistance)
-    Vue.component('measure-area', MeasureArea)
-    Vue.component('measure-height', MeasureHeight)
-
-    Vue.component(CesiumHeatMap.name, CesiumHeatMap)
-  },
-  version
+/**
+ * Register all VueCesium components.
+ * @param {Object} Vue
+ * @param {Object} options
+ */
+function plugin (Vue, options = {}) {
+  if (plugin.installed) {
+    return
+  }
+  plugin.installed = true
+  // 场景
+  Vue.use(Viewer, options)
+  // 影像
+  Vue.use(ImageryLayer, options)
+  Vue.use(ArcGisMapServerImageryProvider, options)
+  Vue.use(BingMapsImageryProvider, options)
+  Vue.use(GoogleEarthEnterpriseImageryProvider, options)
+  Vue.use(GridImageryProvider, options)
+  Vue.use(IonImageryProvider, options)
+  Vue.use(MapboxImageryProvider, options)
+  Vue.use(OpenStreetMapImageryProvider, options)
+  Vue.use(SingleTileImageryProvider, options)
+  Vue.use(TileCoordinatesImageryProvider, options)
+  Vue.use(TileMapServiceImageryProvider, options)
+  Vue.use(UrlTemplateImageryProvider, options)
+  Vue.use(WebMapServiceImageryProvider, options)
+  Vue.use(WebMapTileServiceImageryProvider, options)
+  Vue.use(TiandituImageryProvider, options)
+  Vue.use(SuperMapImageryProvider, options)
+  Vue.use(TiledCacheImageryProvider, options)
+  // 地形
+  Vue.use(ArcGISTiledElevationTerrainProvider, options)
+  Vue.use(CesiumTerrainProvider, options)
+  // 数据源
+  Vue.use(CustomDataSource, options)
+  Vue.use(CzmlDataSource, options)
+  Vue.use(GeoJsonDataSource, options)
+  Vue.use(KmlDataSource, options)
+  // 实体
+  Vue.use(Entity, options)
+  Vue.use(BillboardGraphics, options)
+  Vue.use(BoxGraphics, options)
+  Vue.use(CorridorGraphics, options)
+  Vue.use(CylinderGraphics, options)
+  Vue.use(EllipseGraphics, options)
+  Vue.use(EllipsoidGraphics, options)
+  Vue.use(LabelGraphics, options)
+  Vue.use(ModelGraphics, options)
+  Vue.use(PathGraphics, options)
+  Vue.use(PlaneGraphics, options)
+  Vue.use(PointGraphics, options)
+  Vue.use(PolygonGraphics, options)
+  Vue.use(PolylineGraphics, options)
+  Vue.use(PolylineVolumeGraphics, options)
+  Vue.use(RectangleGraphics, options)
+  Vue.use(WallGraphics, options)
+  // 图元集合
+  Vue.use(PrimitiveCollection, options)
+  Vue.use(BillboardCollection, options)
+  Vue.use(LabelCollection, options)
+  Vue.use(PointPrimitiveCollection, options)
+  Vue.use(PolylineCollection, options)
+  // 图元
+  Vue.use(Primitive, options)
+  Vue.use(ClassificationPrimitive, options)
+  Vue.use(GroundPolylinePrimitive, options)
+  Vue.use(GroundPrimitive, options)
+  Vue.use(Billboard, options)
+  Vue.use(Label, options)
+  Vue.use(PointPrimitive, options)
+  Vue.use(Polyline, options)
+  Vue.use(Model, options)
+  Vue.use(Cesium3DTileset, options)
+  // 几何体
+  Vue.use(GeometryInstance, options)
+  Vue.use(BoxGeometry, options)
+  Vue.use(BoxOutlineGeometry, options)
+  Vue.use(CircleGeometry, options)
+  Vue.use(CircleOutlineGeometry, options)
+  Vue.use(CoplanarPolygonGeometry, options)
+  Vue.use(CoplanarPolygonOutlineGeometry, options)
+  Vue.use(CorridorGeometry, options)
+  Vue.use(CorridorOutlineGeometry, options)
+  Vue.use(CylinderGeometry, options)
+  Vue.use(CylinderOutlineGeometry, options)
+  Vue.use(EllipseGeometry, options)
+  Vue.use(EllipseOutlineGeometry, options)
+  Vue.use(EllipsoidGeometry, options)
+  Vue.use(EllipsoidOutlineGeometry, options)
+  Vue.use(FrustumGeometry, options)
+  Vue.use(FrustumOutlineGeometry, options)
+  Vue.use(GroundPolylineGeometry, options)
+  Vue.use(PlaneGeometry, options)
+  Vue.use(PlaneOutlineGeometry, options)
+  Vue.use(PolygonGeometry, options)
+  Vue.use(PolygonOutlineGeometry, options)
+  Vue.use(PolylineGeometry, options)
+  Vue.use(PolylineVolumeGeometry, options)
+  Vue.use(PolylineVolumeOutlineGeometry, options)
+  Vue.use(RectangleGeometry, options)
+  Vue.use(RectangleOutlineGeometry, options)
+  Vue.use(SimplePolylineGeometry, options)
+  Vue.use(SphereGeometry, options)
+  Vue.use(SphereOutlineGeometry, options)
+  Vue.use(WallGeometry, options)
+  Vue.use(WallOutlineGeometry, options)
+  // stage
+  Vue.use(PostProcessStageCollection, options)
+  Vue.use(PostProcessStage, options)
+  // 工具
+  Vue.use(VcMeasureArea, options)
+  Vue.use(VcMeasureDistance, options)
+  Vue.use(VcMeasureHeight, options)
+  Vue.use(VcDrawHandlerPoint, options)
+  Vue.use(VcDrawHandlerPolyline, options)
+  Vue.use(VcDrawHandlerPolygon, options)
+  // 控件
+  Vue.use(VcNavigation, options)
+  Vue.use(VcNavigationSM, options)
+  // 可视化
+  Vue.use(VcFlood, options)
+  Vue.use(VcHeatMap, options)
+  Vue.use(VcWindMap, options)
 }
 
+export default plugin
+
 export {
-  CesiumViewer,
+  VERSION,
+  plugin as install,
+  Viewer,
+
   ImageryLayer,
   ArcGisMapServerImageryProvider,
   BingMapsImageryProvider,
+  GoogleEarthEnterpriseImageryProvider,
+  GridImageryProvider,
+  IonImageryProvider,
   MapboxImageryProvider,
   OpenStreetMapImageryProvider,
   SingleTileImageryProvider,
+  TileCoordinatesImageryProvider,
+  TileMapServiceImageryProvider,
   UrlTemplateImageryProvider,
+  WebMapServiceImageryProvider,
   WebMapTileServiceImageryProvider,
+  TiandituImageryProvider,
   SuperMapImageryProvider,
+  TiledCacheImageryProvider,
+
+  ArcGISTiledElevationTerrainProvider,
+  CesiumTerrainProvider,
+
+  CustomDataSource,
+  CzmlDataSource,
+  GeoJsonDataSource,
+  KmlDataSource,
+
   Entity,
   BillboardGraphics,
   BoxGraphics,
@@ -136,16 +291,69 @@ export {
   PolylineVolumeGraphics,
   RectangleGraphics,
   WallGraphics,
-  Cesium3DTileset,
-  PointCollection,
+
+  PrimitiveCollection,
+  BillboardCollection,
+  LabelCollection,
+  PointPrimitiveCollection,
   PolylineCollection,
+
+  Primitive,
+  ClassificationPrimitive,
+  GroundPolylinePrimitive,
+  GroundPrimitive,
+  Billboard,
+  Label,
   PointPrimitive,
   Polyline,
-  LabelCollection,
-  Label,
-  MeasureDistance,
-  MeasureArea,
-  MeasureHeight,
   Model,
-  CesiumHeatMap
+  Cesium3DTileset,
+
+  GeometryInstance,
+  BoxGeometry,
+  BoxOutlineGeometry,
+  CircleGeometry,
+  CircleOutlineGeometry,
+  CoplanarPolygonGeometry,
+  CoplanarPolygonOutlineGeometry,
+  CorridorGeometry,
+  CorridorOutlineGeometry,
+  CylinderGeometry,
+  CylinderOutlineGeometry,
+  EllipseGeometry,
+  EllipseOutlineGeometry,
+  EllipsoidGeometry,
+  EllipsoidOutlineGeometry,
+  FrustumGeometry,
+  FrustumOutlineGeometry,
+  GroundPolylineGeometry,
+  PlaneGeometry,
+  PlaneOutlineGeometry,
+  PolygonGeometry,
+  PolygonOutlineGeometry,
+  PolylineGeometry,
+  PolylineVolumeGeometry,
+  PolylineVolumeOutlineGeometry,
+  RectangleGeometry,
+  RectangleOutlineGeometry,
+  SimplePolylineGeometry,
+  SphereGeometry,
+  SphereOutlineGeometry,
+  WallGeometry,
+  WallOutlineGeometry,
+  PostProcessStageCollection,
+  PostProcessStage,
+
+  VcMeasureArea,
+  VcMeasureDistance,
+  VcMeasureHeight,
+  VcDrawHandlerPoint,
+  VcDrawHandlerPolyline,
+  VcDrawHandlerPolygon,
+  VcNavigation,
+  VcNavigationSM,
+
+  VcFlood,
+  VcHeatMap,
+  VcWindMap
 }

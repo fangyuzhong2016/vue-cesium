@@ -14,9 +14,11 @@ script:
   # - npm run lint
   # - npm test
   - npm run build:docs
+  - npm run test
+  - cat test/unit/coverage/lcov.info | node_modules/.bin/coveralls
+
 after_script:
   - cp ./docs/favicon.png ./dist/
-  - cp -rf ./docs/statics/* ./dist/
   - cd dist
   - git init
   - git config user.name "zouyaoji"
